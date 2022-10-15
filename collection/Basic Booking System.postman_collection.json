@@ -1,0 +1,305 @@
+{
+	"info": {
+		"_postman_id": "fb8aa9dd-41b2-4df2-a4d1-8fefd1e49eef",
+		"name": "Basic Booking System",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "5640217"
+	},
+	"item": [
+		{
+			"name": "api",
+			"item": [
+				{
+					"name": "property",
+					"item": [
+						{
+							"name": "Search Property",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/api/property/search?dateIn=2022-11-21&dateOut=2022-11-24",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"api",
+										"property",
+										"search"
+									],
+									"query": [
+										{
+											"key": "dateIn",
+											"value": "2022-11-21"
+										},
+										{
+											"key": "dateOut",
+											"value": "2022-11-24"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "List Property",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/api/property",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"api",
+										"property"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Property Detail",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/api/property/detail/30",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"api",
+										"property",
+										"detail",
+										"30"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Login User",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"username\": \"furkankulaber@gmail.com\",\n  \"password\": \"furkankulaber\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/login",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"login"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "OK",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"description": "Added as a part of security scheme: bearer",
+										"key": "Authorization",
+										"value": "Bearer <token>"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"username\": \"furkankulaber@gmail.com\",\n  \"password\": \"furkankulaber\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/api/login",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"api",
+										"login"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n  \"code\": \"200.0000\",\n  \"message\": \"İşleminiz başarıyla gerçekleştirildi\",\n  \"sessionToken\": \"eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJpYXQiOjE2NDI4NTc3MzcsImV4cCI6MTY0Mjg2MTMzNywicm9sZXMiOlsiUk9MRV9VU0VSIl0sInVzZXJuYW1lIjoiZnVya2Fua3VsYWJlckBnbWFpbC5jb20ifQ.QRUa8cpAiW9MTzafpEJxo1bCGf7XpYn6uxrJVmm20MJ3moSK583LEJShce8VfVmq08BSGlINPEXEwHF-uZ-ikCNqdhVbAQebfFM-uI05rJXeXsAaargUPLC4x72hfqYa76Tjvuidd_vo8_Sw1RmdhJhVKdbTzejlFwFGRSVVrpZiN9FfQn_Q3ZgcHhQG7GBAGPwu6jF3dXTLpux8X43dWOzymMQjKSWPNJBKnHNVXkBD-y4OzPKxmOAu5VTqbDB3Qbowh8EOi7_RSzLrg8RFxxlEwvaIgekTqF2UlEbJKrc6Hv0FHRsa5T-86AMu_wY2zP37m0X7I7J8fNnqp1LIQA\",\n  \"result\": {\n    \"set\": {\n      \"id\": 20,\n      \"username\": \"furkankulaber@gmail.com\",\n      \"email\": \"furkankulaber@gmail.com\"\n    }\n  }\n}"
+						},
+						{
+							"name": "Unauthorized",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"description": "Added as a part of security scheme: bearer",
+										"key": "Authorization",
+										"value": "Bearer <token>"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"username\": \"furkankulaber@gmail.com\",\n  \"password\": \"furkankulaber\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/api/login",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"api",
+										"login"
+									]
+								}
+							},
+							"status": "Unauthorized",
+							"code": 401,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n  \"code\": \"401.0000\",\n  \"message\": \"Geçersiz Kullanıcı adı veya Şifre\",\n  \"result\": null\n}"
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Register User",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"email\": \"furkankulaber@gmail.com\",\n  \"username\": \"furkankulaber\",\n  \"password\": \"furkankulaber\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}/register",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"register"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "OK",
+					"originalRequest": {
+						"method": "POST",
+						"header": [
+							{
+								"description": "Added as a part of security scheme: bearer",
+								"key": "Authorization",
+								"value": "Bearer <token>"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"email\": \"furkankulaber@gmail.com\",\n  \"username\": \"furkankulaber\",\n  \"password\": \"furkankulaber\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/register",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"register"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						}
+					],
+					"cookie": [],
+					"body": "{\n  \"code\": \"200.0000\",\n  \"message\": \"furkankulasber@gmail.com mail adresli kullanıcı kayıt edildi\",\n  \"sessionToken\": null,\n  \"result\": {\n    \"set\": {\n      \"id\": 22,\n      \"username\": \"furkankulsaber@gmail.com\",\n      \"email\": \"furkankulasber@gmail.com\"\n    }\n  }\n}"
+				}
+			]
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "<Bearer Token>",
+				"type": "string"
+			}
+		]
+	},
+	"variable": [
+		{
+			"key": "baseUrl",
+			"value": "http://localhost:8080",
+			"type": "string"
+		}
+	]
+}
