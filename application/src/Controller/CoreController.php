@@ -28,11 +28,11 @@ class CoreController extends AbstractController
      */
     public function __construct(RequestStack $requestStack, ResponseService $responseService, ContainerInterface $container)
     {
-        if (null === $requestStack->getMasterRequest()) {
+        if (null === $requestStack->getMainRequest()) {
             throw new RuntimeException('Internal Error');
         }
         $this->container = $container;
-        $this->request = $requestStack->getMasterRequest();
+        $this->request = $requestStack->getMainRequest();
         $this->entityManager = $container->get('doctrine')->getManager();
         $this->responseService = $responseService;
     }
