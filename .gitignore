@@ -1,0 +1,18 @@
+
+###> symfony/framework-bundle ###
+mysql
+/*/.env.local
+/*/.env.local.php
+/*/.env.*.local
+/*/config/secrets/prod/prod.decrypt.private.w
+/*/public/bundles/
+/*/var/cache
+/*/var/log
+/*/vendor/
+/db-data
+.idea
+###< symfony/framework-bundle ###
+
+/.idea
+/.mysql
+.DS_Store
