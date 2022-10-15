@@ -40,7 +40,7 @@ class ExceptionListener
         );
 
         if ($exception instanceof NotFoundHttpException) {
-            $exception = $this->getApiException()->createException(Constants::MSG_404_0000);
+            $exception = $this->getApiException()->createException(Constants::MSG_404_0000,[],'Oppsss, bulunamadı');
         } else {
             if ($exception instanceof ValidatorException) {
                 $exception = $this->getApiException()->createException(Constants::MSG_412_9999,
@@ -62,7 +62,7 @@ class ExceptionListener
         $code = $this->getApiException()->getBCode();
         $message = $exception->getMessage();
 
-        $response = $this->responseService->withException($exception)->toJsonResponse(null, $code, $message);
+        $response = $this->responseService->toJsonResponse(null, $code, $message);
 
         $event->setResponse($response);
     }

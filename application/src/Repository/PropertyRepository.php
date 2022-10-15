@@ -4,7 +4,6 @@ namespace App\Repository;
 
 use App\Entity\Property;
 use App\Entity\Reservation;
-use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
@@ -13,7 +12,7 @@ use Doctrine\Persistence\ManagerRegistry;
  * @method Property[]    findAll()
  * @method Property[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class PropertyRepository extends ServiceEntityRepository
+class PropertyRepository extends BaseRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
@@ -24,14 +23,20 @@ class PropertyRepository extends ServiceEntityRepository
     {
         $subQueryBuilder = $this->getEntityManager()->createQueryBuilder();
         $subQuery = $subQueryBuilder
-            ->select('id')
+            ->select('pr.id')
             ->from(Reservation::class, 'r')
             ->orWhere('r.dateIn BETWEEN :checkInDate AND :checkOutDate')
             ->orWhere('r.dateOut BETWEEN :checkInDate AND :checkOutDate')
-            ->orWhere('r.dateIn <= :checkInDate AND reservation.dateOut >= :checkOutDate')
-            ->setParameter('checkInDate',$dateIn)
+            ->orWhere('r.dateIn < :checkInDate AND r.dateOut > :checkOutDate')
+            ->innerJoin('r.property', 'pr');
+
+        $qb = $this->getEntityManager()->createQueryBuilder();
+        $qb
+            ->select('p')->from(Property::class, 'p')
+            ->andWhere($qb->expr()->notIn('p.id', $subQuery->getDQL()))
+            ->setParameter('checkInDate', $dateIn)
             ->setParameter('checkOutDate', $dateOut);
 
-        dump($subQuery->getQuery()->getResult());
+        return new RepositoryResponse($qb->getQuery()->getResult());
     }
 }

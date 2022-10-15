@@ -13,16 +13,13 @@ security:
             stateless: true
             anonymous: true
             json_login:
-                check_path:               /api/login
+                check_path: /api/login
                 failure_handler: security.auth_handler
 
         api:
             pattern:   ^/api
             stateless: true
-            provider: app_user_provider
-            guard:
-                authenticators:
-                    - lexik_jwt_authentication.jwt_token_authenticator
+            anonymous: true
 
         dev:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
@@ -32,6 +29,4 @@ security:
 
     access_control:
         - { path: ^/register,  roles: IS_AUTHENTICATED_ANONYMOUSLY }
-        - { path: ^/api/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
-        - { path: ^/api/search, roles: IS_AUTHENTICATED_ANONYMOUSLY }
-        - { path: ^/api,       roles: IS_AUTHENTICATED_FULLY }
+        - { path: ^/api,       roles: IS_AUTHENTICATED_ANONYMOUSLY }

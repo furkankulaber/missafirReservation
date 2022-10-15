@@ -3,24 +3,27 @@
 
 namespace App\Service\ResponseService;
 
+use App\Exception\ApiCustomException;
 use App\Service\ResponseService\Utilities\ApiResponse;
 use App\Service\ResponseService\Utilities\ApiResult;
 use App\Traits\Serialize;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Security\Core\Security;
+use Symfony\Component\Validator\Exception\ValidatorException;
 
 class Service
 {
     use Serialize;
 
-    /** @var ContainerInterface  */
+    /** @var ContainerInterface */
     private ContainerInterface $container;
 
-    /** @var Security  */
+    /** @var Security */
     private Security $security;
 
-    /** @var null|\Exception  */
+    /** @var null|\Exception */
     private ?\Exception $exception = null;
 
     /** @var string|null */
@@ -31,6 +34,7 @@ class Service
         $this->container = $container;
         $this->security = $security;
     }
+
     /**
      * @return ContainerInterface
      */
@@ -44,7 +48,7 @@ class Service
         list($msgIdentifier, $statusCode, $statusSubCode) = explode('.', $code);
 
         return array(
-            'httpStatusCode' => (int) $statusCode,
+            'httpStatusCode' => (int)$statusCode,
             'code' => implode('.', [$statusCode, $statusSubCode])
         );
     }
@@ -57,6 +61,9 @@ class Service
 
     public function withException(\Exception $exception)
     {
+        if ($exception instanceof ApiCustomException) {
+            return $this;
+        }
         $this->exception = $exception;
         return $this;
     }
@@ -107,14 +114,13 @@ class Service
     }
 
 
-
-    private function prepareDataForJsonResponse($data,$recursive=false)
+    private function prepareDataForJsonResponse($data, $recursive = false)
     {
         if ($data instanceof ResponseInterface) {
             return $data->outputToArray();
         }
-        if(is_object($data)){
-            return json_decode($this->getSerializer()->serialize($data,'json', [
+        if (is_object($data)) {
+            return json_decode($this->getSerializer()->serialize($data, 'json', [
                 'circular_reference_handler' => function ($object) {
                     return $object->getId();
                 }
@@ -124,15 +130,15 @@ class Service
         if (is_array($data)) {
             $response = [];
             foreach ($data as $k => $v) {
-                $response[$k] = $this->prepareDataForJsonResponse($v,true);
+                $response[$k] = $this->prepareDataForJsonResponse($v, true);
             }
 
             return $response;
         }
-        if($recursive === true ){
+        if ($recursive === true) {
             return $data;
         }
-        if($data === null){
+        if ($data === null) {
             return $data;
         }
         return ['value' => $data];

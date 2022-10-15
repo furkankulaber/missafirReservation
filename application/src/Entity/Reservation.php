@@ -6,7 +6,7 @@ use App\Traits\EntityTrait;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity(repositoryClass=ReservationRepository::class)
+ * @ORM\Entity(repositoryClass=App\Repository\ReservationRepository::class)
  */
 class Reservation
 {
